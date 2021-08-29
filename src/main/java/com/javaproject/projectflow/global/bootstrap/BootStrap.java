@@ -15,6 +15,7 @@ public class BootStrap implements CommandLineRunner {
     public void run(String... args) {
         sender.declareExchange(ExchangeSpecification
                 .exchange(RabbitMQConfig.DIRECT_EXCHANGE)
-                .type("direct"));
+                .type("direct"))
+                .subscribe();
     }
 }
