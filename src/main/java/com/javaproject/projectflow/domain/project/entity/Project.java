@@ -3,6 +3,7 @@ package com.javaproject.projectflow.domain.project.entity;
 import com.javaproject.projectflow.domain.CreatedAtEntity;
 import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -25,7 +26,8 @@ public class Project extends CreatedAtEntity {
     private String projectName;
 
     @DBRef(lazy = true)
-    private List<User> users;
+    @Field("user_ids")
+    private List<User> userIds;
 
     @NonNull
     private String title;

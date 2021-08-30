@@ -1,16 +1,14 @@
 package com.javaproject.projectflow.domain.plan.entity;
 
 import com.javaproject.projectflow.domain.CreatedAtEntity;
-import com.javaproject.projectflow.domain.chatroom.entity.Member;
+import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.domain.Persistable;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -30,7 +28,8 @@ public class Plan extends CreatedAtEntity {
     @Field("end_date")
     private LocalDate endDate;
 
-    @NonNull
-    private List<Member> members;
+    @DBRef
+    @Field("user_ids")
+    private List<User> userIds;
 
 }
