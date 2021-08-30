@@ -1,6 +1,7 @@
 package com.javaproject.projectflow.domain.chat.entity;
 
 import com.javaproject.projectflow.domain.chatroom.entity.ChatRoom;
+import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -26,6 +27,6 @@ public class Chat {
 
     private LocalDateTime createdAt;
 
-    private List<String> readers;
+    private List<String> readerIdList;
 
 }

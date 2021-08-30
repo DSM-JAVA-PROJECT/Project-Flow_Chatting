@@ -1,6 +1,9 @@
 package com.javaproject.projectflow.domain.chatroom.entity;
 
+import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -14,9 +17,8 @@ public class Member {
     @MongoId
     private String id;
 
-    private String userId;
-
-    private String userName;
+    @DBRef
+    private User user;
 
     private String field;
 
