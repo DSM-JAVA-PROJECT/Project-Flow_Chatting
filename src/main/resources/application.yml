@@ -1,1 +1,16 @@
-
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+  data:
+    mongodb:
+      username:
+      password:
+      auto-index-creation: true
+      authentication-database: admin
+      database: projectflow
+  rsocket:
+    server:
+      transport: websocket
+      port: 7000
+      mapping-path: /rsocket
