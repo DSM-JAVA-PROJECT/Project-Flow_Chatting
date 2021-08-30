@@ -4,7 +4,6 @@ import com.javaproject.projectflow.domain.CreatedAtEntity;
 import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -15,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-@Document
 public class Plan extends CreatedAtEntity {
 
     @MongoId

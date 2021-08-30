@@ -4,13 +4,11 @@ import com.javaproject.projectflow.domain.CreatedAtEntity;
 import com.javaproject.projectflow.domain.chatroom.entity.ChatRoom;
 import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
