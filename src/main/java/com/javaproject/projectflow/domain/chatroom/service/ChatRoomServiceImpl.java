@@ -11,6 +11,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.rabbitmq.BindingSpecification;
 import reactor.rabbitmq.ExchangeSpecification;
+import reactor.rabbitmq.QueueSpecification;
 import reactor.rabbitmq.Sender;
 
 @RequiredArgsConstructor
@@ -25,13 +26,16 @@ public class ChatRoomServiceImpl implements ChatRoomService {
         return buildChatRoom(request)
                 .flatMap(chatRoom -> chatRoomRepository.save(projectId, chatRoom))
                 .flatMap(chatRoom -> {
-                    sender
-                            .declareExchange(ExchangeSpecification.exchange(request.getName())
-                                    .type("fanout"));
+                    sender.declareExchange(ExchangeSpecification.exchange(request.getName())
+                            .type("fanout"));
                     return Mono.just(chatRoom);
                 })
-                .flatMap(chatRoom -> sender.bindExchange(BindingSpecification
-                        .exchangeBinding(RabbitMQConfig.DIRECT_EXCHANGE, chatRoom.getId(), chatRoom.getId())))
+                .flatMap(chatRoom -> {
+                    sender.bindExchange(BindingSpecification
+                            .exchangeBinding(RabbitMQConfig.DIRECT_EXCHANGE, chatRoom.getId(), chatRoom.getId()));
+                    return Mono.just(chatRoom);
+                })
+                .flatMap(chatRoom -> joinChatRoom(chatRoom.getId(), userEmail))
                 .map(unused -> "created");
     }
 
@@ -39,6 +43,21 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public Flux<ChatRoomContentResponse> getChatRooms(String projectId, String userEmail) {
         return chatRoomRepository.findChatRooms(projectId)
                 .map(chatRoom -> buildChatRoom(chatRoom, userEmail));
+    }
+
+    @Override
+    public Mono<String> resignChatRoom(String chatRoomId, String userEmail) {
+        return null;
+    }
+
+    @Override
+    public Mono<String> joinChatRoom(String chatRoomId, String userEmail) {
+        String queueName = chatRoomId + "." + userEmail;
+        return sender.declareQueue(QueueSpecification
+                        .queue()
+                        .name(queueName))
+                .flatMap(unused -> sender.bindQueue(BindingSpecification.queueBinding(chatRoomId, userEmail, queueName)))
+                .map(unused -> "created");
     }
 
     private ChatRoomContentResponse buildChatRoom(ChatRoom chatRoom, String userEmail) {

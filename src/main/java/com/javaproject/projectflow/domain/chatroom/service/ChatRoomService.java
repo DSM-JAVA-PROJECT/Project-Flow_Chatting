@@ -8,4 +8,6 @@ import reactor.core.publisher.Mono;
 public interface ChatRoomService {
     Mono<String> createChatRoom(String userEmail, CreateChatRoomRequest request, String projectId);
     Flux<ChatRoomContentResponse> getChatRooms(String projectId, String userId);
+    Mono<String> resignChatRoom(String chatRoomId, String userEmail);
+    Mono<String> joinChatRoom(String chatRoomId, String userEmail);
 }
