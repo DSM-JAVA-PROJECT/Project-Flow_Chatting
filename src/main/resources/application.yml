@@ -2,11 +2,16 @@ spring:
   rabbitmq:
     host: localhost
     port: 5672
+
   data:
     mongodb:
       auto-index-creation: true
       authentication-database: admin
-      database: projectflow
+      database: project-flow
+      repositories:
+        type: reactive
+      uri: ${MONGO_URL}
+
   rsocket:
     server:
       transport: websocket
