@@ -1,6 +1,7 @@
 package com.javaproject.projectflow.domain.project.entity;
 
 import com.javaproject.projectflow.domain.CreatedAtEntity;
+import com.javaproject.projectflow.domain.chatroom.entity.ChatRoom;
 import com.javaproject.projectflow.domain.user.User;
 import lombok.*;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -28,6 +29,8 @@ public class Project extends CreatedAtEntity {
     @Field("user_ids")
     private List<User> userIds;
 
+    private List<ChatRoom> chatRooms;
+
     @NonNull
     private String title;
 
@@ -45,5 +48,7 @@ public class Project extends CreatedAtEntity {
 
     @Field("logo_image")
     private String logoImage;
+
+
 
 }
