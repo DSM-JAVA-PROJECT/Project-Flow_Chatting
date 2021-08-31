@@ -1,5 +1,6 @@
 package com.javaproject.projectflow.domain.chatroom.controller;
 
+import com.javaproject.projectflow.domain.chatroom.payload.ChatRoomContentResponse;
 import com.javaproject.projectflow.domain.chatroom.payload.CreateChatRoomRequest;
 import com.javaproject.projectflow.domain.chatroom.service.ChatRoomService;
 import com.javaproject.projectflow.global.security.CurrentUser;
@@ -12,6 +13,7 @@ import org.springframework.messaging.handler.annotation.MessageExceptionHandler;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
@@ -24,6 +26,11 @@ public class ChatRoomController {
     public Mono<String> createChatRoom(@DestinationVariable @NonNull String projectId, @CurrentUser String email,
                                        @Payload CreateChatRoomRequest request) {
         return chatRoomService.createChatRoom(email, request, projectId);
+    }
+
+    @MessageMapping("{projectId}.chatroom")
+    public Flux<ChatRoomContentResponse> getChatRoom(@DestinationVariable @NonNull String projectId, @CurrentUser String email) {
+        return chatRoomService.getChatRooms(projectId, email);
     }
 
     @MessageExceptionHandler

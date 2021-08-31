@@ -36,16 +36,16 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     }
 
     @Override
-    public Flux<ChatRoomContentResponse> getChatRooms(String projectId, String userId) {
+    public Flux<ChatRoomContentResponse> getChatRooms(String projectId, String userEmail) {
         return chatRoomRepository.findChatRooms(projectId)
-                .map(chatRoom -> buildChatRoom(chatRoom, userId));
+                .map(chatRoom -> buildChatRoom(chatRoom, userEmail));
     }
 
-    private ChatRoomContentResponse buildChatRoom(ChatRoom chatRoom, String userId) {
+    private ChatRoomContentResponse buildChatRoom(ChatRoom chatRoom, String userEmail) {
         return ChatRoomContentResponse.builder()
                 .chatRoomName(chatRoom.getName())
                 .chatRoomId(chatRoom.getId())
-                .isParticipated(chatRoom.getUsers().stream().anyMatch(user -> user.getId().equals(userId)))
+                .isParticipated(chatRoom.getUsers().stream().anyMatch(user -> user.getEmail().equals(userEmail)))
                 .build();
     }
 
