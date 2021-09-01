@@ -31,6 +31,6 @@ public class Chat extends CreatedAtEntity {
     private User sender;
 
     @DBRef(lazy = true)
-    private List<User> receiver;
+    private List<User> readers;
 
 }
