@@ -5,10 +5,10 @@ import com.javaproject.projectflow.domain.project.exception.ProjectNotFoundExcep
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import static org.springframework.data.mongodb.core.query.Query.query;
 
 @RequiredArgsConstructor
 @Repository
@@ -17,7 +17,7 @@ public class ChatRoomRepository {
     private final ReactiveMongoTemplate mongoTemplate;
 
     public Mono<ChatRoom> save(String projectId, ChatRoom chatRoom) {
-        Mono<Project> projectMono = mongoTemplate.findOne(Query.query(new Criteria("_id").is(projectId)), Project.class)
+        Mono<Project> projectMono = mongoTemplate.findOne(query(new Criteria("_id").is(projectId)), Project.class)
                 .switchIfEmpty(Mono.error(ProjectNotFoundException.EXCEPTION))
                 .doOnError(throwable -> Mono.error(ProjectNotFoundException.EXCEPTION));
 
@@ -30,8 +30,14 @@ public class ChatRoomRepository {
                 .mapNotNull(project -> project.getChatRooms().stream().findFirst().orElse(null));
     }
 
+    public Mono<ChatRoom> getChatRoom(String projectId, String chatRoomId) {
+        return findChatRooms(projectId)
+                .filter(chatRoom -> chatRoom.getId().equals(chatRoomId))
+                .singleOrEmpty();
+    }
+
     public Flux<ChatRoom> findChatRooms(String projectId) {
-        return mongoTemplate.findOne(Query.query(new Criteria("_id").is(projectId)), Project.class)
+        return mongoTemplate.findOne(query(new Criteria("_id").is(projectId)), Project.class)
                 .flatMapMany(project -> Flux.fromIterable(project.getChatRooms()));
     }
 
