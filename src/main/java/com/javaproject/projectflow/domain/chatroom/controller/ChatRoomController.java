@@ -33,6 +33,11 @@ public class ChatRoomController {
         return chatRoomService.getChatRooms(projectId, email);
     }
 
+    @MessageMapping("resign.{chatRoomId}")
+    public Mono<String> resignChatRoom(@DestinationVariable @NonNull String chatRoomId, @CurrentUser String email) {
+        return chatRoomService.resignChatRoom(chatRoomId, email);
+    }
+
     @MessageExceptionHandler
     public Mono<ResponseEntity<String>> exception(final Exception exception) {
         return Mono.just(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

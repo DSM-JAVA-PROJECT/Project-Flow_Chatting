@@ -47,7 +47,9 @@ public class ChatRoomServiceImpl implements ChatRoomService {
 
     @Override
     public Mono<String> resignChatRoom(String chatRoomId, String userEmail) {
-        return null;
+        String chatRoom = chatRoomId + "." + userEmail;
+        return sender.deleteQueue(QueueSpecification.queue(chatRoom), true, true)
+                .map(unused -> "no content");
     }
 
     @Override
