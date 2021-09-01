@@ -16,7 +16,7 @@ public class ReactiveObjectMapper {
     private final Jackson2JsonEncoder jsonEncoder;
     private final DataBufferFactory dataBufferFactory;
 
-    Flux<DataBuffer> encodeValue(Class<?> target, Mono<Object> targetObj) {
+    public Flux<DataBuffer> encodeValue(Class<?> target, Mono<Object> targetObj) {
         ResolvableType type = ResolvableType.forType(target);
         if (jsonEncoder.canEncode(type, null)) {
             return jsonEncoder.encode(targetObj, dataBufferFactory,
