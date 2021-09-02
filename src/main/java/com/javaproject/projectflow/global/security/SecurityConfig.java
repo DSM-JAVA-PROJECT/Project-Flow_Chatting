@@ -36,7 +36,7 @@ import javax.crypto.spec.SecretKeySpec;
 public class SecurityConfig {
 
     @Value("${jwt.secret}")
-    private final String secret;
+    private String secret;
 
     @Bean
     public PayloadExchangeAuthenticationConverter authenticationConverter() {
