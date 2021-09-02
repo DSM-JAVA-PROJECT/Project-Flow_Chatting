@@ -17,3 +17,6 @@ spring:
       transport: websocket
       port: 7000
       mapping-path: /rsocket
+
+jwt:
+  secret: ${SECRET_KEY:testtesttesttesttesttesttesttest}

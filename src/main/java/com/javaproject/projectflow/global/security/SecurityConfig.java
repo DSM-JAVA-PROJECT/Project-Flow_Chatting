@@ -35,8 +35,6 @@ import javax.crypto.spec.SecretKeySpec;
 @EnableReactiveMethodSecurity
 public class SecurityConfig {
 
-    private final UserRepository userRepository;
-
     @Value("${jwt.secret}")
     private final String secret;
 
@@ -60,7 +58,9 @@ public class SecurityConfig {
     @Bean
     PayloadSocketAcceptorInterceptor authenticationConverter(RSocketSecurity security) {
         return security
-                .authorizePayload(authorizePayloadsSpec -> authorizePayloadsSpec.anyExchange().authenticated())
+                .authorizePayload(authorizePayloadsSpec -> authorizePayloadsSpec
+                        .setup().permitAll()
+                        .anyExchange().authenticated())
                 .jwt(jwtSpec -> jwtSpec.authenticationManager(authenticationManager()))
                 .build();
     }
