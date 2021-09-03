@@ -11,7 +11,7 @@ IMAGE_NAME="project-flow-image"
 
 # echo "현재 실행중인 Application 확인" >> /home/ubuntu/deploy.log
 sudo docker build --name $IMAGE_NAME /home/ubuntu/build/Dockerfile
-STATUS=!"$(docker ps -a | grep $CONTAINER_NAME)"
+STATUS=![-z "$(docker ps -a | grep $CONTAINER_NAME)"]
 echo "상태: $STATUS" > /home/ubuntu/deploy.log
 
 if $STATUS; then
