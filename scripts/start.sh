@@ -11,14 +11,14 @@ IMAGE_NAME="project-flow-image"
 
 # echo "현재 실행중인 Application 확인" >> /home/ubuntu/deploy.log
 sudo docker build --name $IMAGE_NAME /home/ubuntu/build/Dockerfile
-STATUS=![-z "$(docker ps -a | grep $CONTAINER_NAME)"]
+STATUS=![-z "$(sudo docker ps -a | grep $CONTAINER_NAME)"]
 echo "상태: $STATUS" > /home/ubuntu/deploy.log
 
 if $STATUS; then
-  if [ "$(docker ps -aq -f status=running -f name=$CONTAINER_NAME)" ]; then
+  if [ "$(sudo docker ps -aq -f status=running -f name=$CONTAINER_NAME)" ]; then
     sudo docker stop $CONTAINER_NAME
   fi
-  if [ "$(docker ps -aq -f status=exited -f name=$CONTAINER_NAME)" ]; then
+  if [ "$(sudo docker ps -aq -f status=exited -f name=$CONTAINER_NAME)" ]; then
       # 만약 exited 상태의 container가 존재한다면 삭제
     sudo docker rm $CONTAINER_NAME
   fi
