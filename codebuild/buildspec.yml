@@ -16,6 +16,7 @@ artifacts:    # artifact 설정
     - appspec.yml
     - build/libs/*.jar
     - scripts/**
+    - docker-compose.yml
     - Dockerfile
   discard-paths: yes  # CodeBuild의 결과물에 해당 파일들을 추가한다.
 
