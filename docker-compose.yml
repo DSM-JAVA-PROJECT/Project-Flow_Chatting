@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  color:
+    build: /home/ubuntu/build
+    container_name: project-flow
+    ports:
+      - "8080:8080"
+    environment:
+      - MONGO_URL=${MONGO_URL}
+      - SECRET_KEY=${SECRET_KEY}
