@@ -35,7 +35,7 @@ public class ChatRoomServiceImpl implements ChatRoomService {
                             .exchangeBinding(RabbitMQConfig.DIRECT_EXCHANGE, chatRoom.getId(), chatRoom.getId()));
                     return Mono.just(chatRoom);
                 })
-                .flatMap(chatRoom -> joinChatRoom(chatRoom.getId(), userEmail))
+                .flatMap(chatRoom -> joinChatRoom(projectId, chatRoom.getId(), userEmail))
                 .map(unused -> "created");
     }
 
@@ -56,7 +56,6 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public Mono<String> joinChatRoom(String projectId, String chatRoomId, String userEmail) {
         String queueName = chatRoomId + "." + userEmail;
 
-        chatRoomRepository.
         return sender.declareQueue(QueueSpecification
                         .queue()
                         .name(queueName))
