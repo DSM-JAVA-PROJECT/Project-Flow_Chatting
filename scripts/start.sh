@@ -10,7 +10,7 @@ IMAGE_NAME="project-flow-image"
 # cp "$BUILD_JAR" $DEPLOY_PATH                # 필요없
 
 # echo "현재 실행중인 Application 확인" >> /home/ubuntu/deploy.log
-sudo docker build --name $IMAGE_NAME /home/ubuntu/build/Dockerfile
+sudo docker build -t $IMAGE_NAME /home/ubuntu/build
 STATUS=![-z "$(sudo docker ps -a | grep $CONTAINER_NAME)"]
 echo "상태: $STATUS" > /home/ubuntu/deploy.log
 
