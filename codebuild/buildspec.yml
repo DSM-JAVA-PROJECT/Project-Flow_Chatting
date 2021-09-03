@@ -15,6 +15,7 @@ artifacts:    # artifact 설정
   files:      # appspec 파일 설정, 어떤 파일을 가져갈지 선택
     - appspec.yml
     - build/libs/*.jar
+    - Dockerfile
   discard-paths: yes  # CodeBuild의 결과물에 해당 파일들을 추가한다.
 
 cache:
