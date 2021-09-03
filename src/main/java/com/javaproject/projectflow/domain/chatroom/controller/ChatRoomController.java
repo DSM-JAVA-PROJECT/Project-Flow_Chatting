@@ -33,9 +33,12 @@ public class ChatRoomController {
         return chatRoomService.getChatRooms(projectId, email);
     }
 
-    @MessageMapping("resign.{chatRoomId}")
-    public Mono<String> resignChatRoom(@DestinationVariable @NonNull String chatRoomId, @CurrentUser String email) {
-        return chatRoomService.resignChatRoom(chatRoomId, email);
+//    @MessageMapping("{projectId}.{chatRoomId}.")
+
+    @MessageMapping("{projectId}.{chatRoomId}.resign")
+    public Mono<String> resignChatRoom(@DestinationVariable @NonNull String projectId,
+                                       @DestinationVariable @NonNull String chatRoomId, @CurrentUser String email) {
+        return chatRoomService.resignChatRoom(projectId, chatRoomId, email);
     }
 
     @MessageExceptionHandler
