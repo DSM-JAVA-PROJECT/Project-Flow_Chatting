@@ -7,7 +7,6 @@ spring:
     mongodb:
       auto-index-creation: true
       authentication-database: admin
-      database: project-flow
       repositories:
         type: reactive
       uri: ${MONGO_URL}
