@@ -20,7 +20,8 @@ else
 fi
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
-echo "> run DEPLOY_JAR"    >> /home/ubuntu/deploy.log
 echo "> MONGO_URL:"
 echo "$MONGO_URL"
-nohup java -jar "$DEPLOY_JAR" >> /home/ubuntu/deploy.log 2>/home/ubuntu/deploy_err.log &
+echo "> run DEPLOY_JAR"    >> /home/ubuntu/deploy.log
+
+nohup java -jar "$DEPLOY_JAR"&
