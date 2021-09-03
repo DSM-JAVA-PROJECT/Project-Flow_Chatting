@@ -46,15 +46,17 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     }
 
     @Override
-    public Mono<String> resignChatRoom(String chatRoomId, String userEmail) {
+    public Mono<String> resignChatRoom(String projectId, String chatRoomId, String userEmail) {
         String chatRoom = chatRoomId + "." + userEmail;
         return sender.deleteQueue(QueueSpecification.queue(chatRoom), true, true)
                 .map(unused -> "no content");
     }
 
     @Override
-    public Mono<String> joinChatRoom(String chatRoomId, String userEmail) {
+    public Mono<String> joinChatRoom(String projectId, String chatRoomId, String userEmail) {
         String queueName = chatRoomId + "." + userEmail;
+
+        chatRoomRepository.
         return sender.declareQueue(QueueSpecification
                         .queue()
                         .name(queueName))
