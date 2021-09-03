@@ -5,7 +5,7 @@ JAR_NAME=$(basename "$BUILD_JAR")
 echo "> build 파일명: $JAR_NAME" >> $BASE_DIR + deploy.log
 
 echo "> build 파일 복사" >> $BASE_DIR + deploy.log
-DEPLOY_PATH=BASE_DIR
+DEPLOY_PATH=$BASE_DIR
 cp "$BUILD_JAR" $DEPLOY_PATH
 
 echo "> 현재 실행중인 애플리케이션 pid 확인" >> $BASE_DIR/deploy.log
