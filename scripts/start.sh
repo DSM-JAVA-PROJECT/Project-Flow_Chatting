@@ -11,17 +11,18 @@ IMAGE_NAME="project-flow-image"
 
 # echo "현재 실행중인 Application 확인" >> /home/ubuntu/deploy.log
 sudo docker build -t $IMAGE_NAME /home/ubuntu/build
+echo "$MONGO_URL" > /home/ubuntu/deploy.log
 
 if [ -n "$(sudo docker ps -aq -f status=running -f name=$CONTAINER_NAME)" ]; then
   # running이 있다면 stop
-  echo "stopping.."
+  echo "stopping" >> /home/ubuntu/deploy.log
   sudo docker stop $CONTAINER_NAME
 fi
 if [ -n "$(sudo docker ps -aq -f status=exited -f name=$CONTAINER_NAME)" ]; then
   # 만약 exited 상태의 container가 존재한다면 삭제
-  echo "removing..."
+  echo "removing.." >> /home/ubuntu/deploy.log
   sudo docker rm $CONTAINER_NAME
 fi
-echo "running"
+echo "running" >> /home/ubuntu/deploy.log
 # 컨테이너 실행
 sudo docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
