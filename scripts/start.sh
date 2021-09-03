@@ -16,13 +16,13 @@ echo "상태: $STATUS" > /home/ubuntu/deploy.log
 
 if $STATUS; then
   if [ "$(docker ps -aq -f status=running -f name=$CONTAINER_NAME)" ]; then
-    docker stop $CONTAINER_NAME
+    sudo docker stop $CONTAINER_NAME
   fi
   if [ "$(docker ps -aq -f status=exited -f name=$CONTAINER_NAME)" ]; then
       # 만약 exited 상태의 container가 존재한다면 삭제
-      docker rm $CONTAINER_NAME
+    sudo docker rm $CONTAINER_NAME
   fi
   echo "컨테이너 실행"
   # 컨테이너 실행
-  docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
+  sudo docker run -d --name $CONTAINER_NAME -p 8080:8080 $IMAGE_NAME
 fi
