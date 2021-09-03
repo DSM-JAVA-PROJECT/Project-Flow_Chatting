@@ -1,5 +1,10 @@
 version: 0.2
 
+env:
+  variables:
+    - MONGO_URL=${MONGO_URL}
+    - SECRET_KEY=${SECRET_KEY}
+
 phases:   # github action의 jobs와 비슷한 의미
   build:
     commands:   # build 라는 작업 실행 시 실행될 shell 명령어들
