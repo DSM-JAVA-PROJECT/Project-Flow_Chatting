@@ -2,8 +2,8 @@ version: 0.2
 
 env:
   variables:
-    - MONGO_URL=${MONGO_URL}
-    - SECRET_KEY=${SECRET_KEY}
+    MONGO_URL=${MONGO_URL}
+    SECRET_KEY=${SECRET_KEY}
 
 phases:   # github action의 jobs와 비슷한 의미
   build:
