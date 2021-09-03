@@ -24,5 +24,5 @@ if [ -n "$(sudo docker ps -aq -f status=exited -f name=$CONTAINER_NAME)" ]; then
 fi
 echo "running" >> /home/ubuntu/deploy.log
 # 컨테이너 실행
-pwd
+ls
 sudo docker-compose up -d --build
