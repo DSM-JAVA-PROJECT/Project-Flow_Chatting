@@ -32,12 +32,13 @@ public class PlanServiceImpl implements PlanService {
                 .flatMap(planId -> planRepository.findPlan(dto.getProjectId(), dto.getChatRoomId(), planId))
                 .map(this::buildPlanMessage)
                 .flatMap(message -> sendMessage(dto.getChatRoomId(), message))
-                .map(unused -> "success");
+                .then(Mono.just("success"));
     }
 
     @Override
     public Mono<String> joinPlan(JoinPlanDto dto) {
-        return null;
+        return planRepository.addUser(dto.getProjectId(), dto.getChatRoomId(), dto.getPlanId(), dto.getUserId())
+                .then(Mono.just("success"));
     }
 
     private PlanMessage buildPlanMessage(Plan plan) {
