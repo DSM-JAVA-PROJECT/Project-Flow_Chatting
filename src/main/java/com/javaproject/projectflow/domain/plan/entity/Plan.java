@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Plan extends CreatedAtEntity {
+public class Plan extends CreatedAtEntity{
 
     @MongoId
     private String id;
@@ -26,8 +26,15 @@ public class Plan extends CreatedAtEntity {
     @Field("end_date")
     private LocalDate endDate;
 
+    @NonNull
+    @Field("start_date")
+    private LocalDate startDate;
+
     @DBRef
     @Field("user_ids")
     private List<User> userIds;
+
+    @DBRef
+    private User sender;
 
 }
