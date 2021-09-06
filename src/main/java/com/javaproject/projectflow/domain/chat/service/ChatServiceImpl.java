@@ -37,7 +37,7 @@ public class ChatServiceImpl implements ChatService {
     }
 
     private Mono<Chat> buildChat(String sender, ChatRequest request, ChatRoom chatRoom) {
-        return userRepository.findById(sender)
+        return userRepository.findByEmail(sender)
                 .map(user ->
                         Chat.builder()
                                 .chatRoom(chatRoom)

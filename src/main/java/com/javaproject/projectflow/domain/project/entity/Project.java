@@ -29,6 +29,8 @@ public class Project extends CreatedAtEntity {
     @Field("user_ids")
     private List<User> userIds;
 
+    @DBRef(lazy = true)
+    @Field("chatrooms")
     private List<ChatRoom> chatRooms;
 
     @NonNull
@@ -48,7 +50,6 @@ public class Project extends CreatedAtEntity {
 
     @Field("logo_image")
     private String logoImage;
-
 
 
 }
