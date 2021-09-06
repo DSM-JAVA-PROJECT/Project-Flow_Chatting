@@ -3,6 +3,7 @@ package com.javaproject.projectflow.domain.plan.entity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
@@ -27,6 +28,15 @@ public class PlanRepository {
                 .elemMatch(new Criteria("_id").is(chatRoomId))
                 .elemMatch(new Criteria("_id").is(planId))),
                 Plan.class);
+    }
+
+    public Mono<Void> addUser(String projectId, String chatRoomId, String planId, String userId) {
+        return template.updateFirst(Query.query(new Criteria("_id").is(projectId)
+                .elemMatch(new Criteria("_id").is(chatRoomId))
+                .elemMatch(new Criteria("_id").is(planId))),
+                new Update().push("users", userId),
+                "users")
+                .then();
     }
 
 }
